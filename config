@@ -1,0 +1,19 @@
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = dn
+[dn]
+C = my_region (RU)
+ST = my_country
+L = my_city
+O = my_company
+OU = my_org_unit
+emailAddress = email@example.com
+CN = CommonName(Basicaly domain name)
+
+[req_ext]
+subjectAltName = @alt_names
+[alt_names]
+IP.1 = 127.0.0.1
