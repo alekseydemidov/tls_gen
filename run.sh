@@ -1,18 +1,24 @@
 #!/bin/bash
 
+
 ### Put variable here###################################################################################
+
+ROOTCA_REQ=True         #Generate rootCA certificate?
 ROOTCA=rootCA           #filename CA certificate
 DAYS=730                #how long certs valid
-CERT_NAME=haproxy       #filename certificate
+CERT_NAME=cert_name     #filename certificate
 SAN=IP:127.0.0.1        #subjectAltName
+#SAN=DNS:mydomain.exmple.com
 
 ########################################################################################################
 
-rm -rf $ROOTCA.* $CERT_NAME.*
-echo " Generate CA key: "
-openssl genrsa -out $ROOTCA.key 4096
-echo " Generate CA certificate: "
-openssl req -x509 -new -config config -nodes -key $ROOTCA.key -sha256 -days $DAYS -out $ROOTCA.crt
+if [ $ROOTCA_REQ = True ]; then
+	rm -rf $ROOTCA.* $CERT_NAME.*
+	echo " Generate CA key: "
+	openssl genrsa -out $ROOTCA.key 4096
+	echo " Generate CA certificate: "
+	openssl req -x509 -new -config config -nodes -key $ROOTCA.key -sha256 -days $DAYS -out $ROOTCA.crt
+fi
 echo ""
 echo "Generate Client key:"
 openssl genrsa -out $CERT_NAME.key 2048
